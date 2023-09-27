@@ -1,0 +1,54 @@
+import './App.css'
+
+
+function FlightNonStop({prop}){
+    if(typeof(prop)!=='object'){return (<>Parameters !</>)}
+    else if(Object.keys(prop).length===0){return (<>Will Be Displayed Here</>)}
+
+    const {flight_number,origin,destination,departure_at,airline,price,duration_to:duration,transfers} = prop;
+
+    let dep_at = new Date(departure_at.slice(0,19))
+    let arr_at = new Date(new Date(departure_at.slice(0,19)).getTime()+duration*60000);
+
+    return (
+        <div id='invi2' style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-around'}}>
+
+        <span style={{fontSize:25,fontFamily:'system-ui',color:'white'}}>
+            <b>Non-Stop<br></br>Fare</b>
+        </span>
+
+    <div className='flight_nonstop'>
+
+        <span style={{display:'flex',alignItems:'center'}}>
+            <img style={{border:'hidden black'}} src={`https://pics.avs.io/90/60/${airline}.png`}></img>&emsp;{airline+flight_number}
+        </span>
+        
+        <span id='dep'>
+            {dep_at.toLocaleTimeString()}<br></br>
+            🛫 {origin}<br></br>
+            {dep_at.toDateString()}
+        </span>
+
+        <span>
+            {Math.floor(duration/60)}h:{duration%60}m
+            <hr style={{border:'solid lightgreen 1px'}}></hr>
+            Non-Stop
+        </span>
+
+        <span id='arr'>
+            {arr_at.toLocaleTimeString()}<br></br>
+            {destination} 🛬<br></br>
+            {arr_at.toDateString()}
+        </span>
+
+        <span style={{fontSize:18}} id='price'>
+            <b>₹ {price}</b>
+        </span>
+    </div>
+
+    </div>
+);
+
+}
+
+export default FlightNonStop;
